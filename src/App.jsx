@@ -34,7 +34,7 @@ function FrameFunction(animState,superState)
   {
     if(globalLoop<2)
     {
-      interval=50;
+      interval=100;
     }
     else interval=500;
   }
@@ -108,20 +108,33 @@ function App() {
       </div>
       <h1>CZY ZOSTANIESZ MOJĄ WALENTYNKĄ?</h1>
       <div className="card">
-        <button className="yes" 
+        {
+        decision==1&&<h2>
+        OMG SUPER, NIE MOGĘ SIĘ DOCZEKAĆ RANDKI
+        </h2>
+        }
+        {
+        decision==2&&<h2>
+        :c szkoda. mam nadzieję, że chociaż ci się ta kartka spodobała  
+        </h2>
+        }
+        {
+        decision==0&&<button className="yes" 
         onClick={() => setDecision(1)}
         onMouseEnter={() => setCount(1)}
         onMouseLeave={() => setCount(0)}
         >
         TAK
         </button>
-        <button className="no" 
+        }
+        {
+        decision==0&&<button className="no" 
         onClick={() => setDecision(2)}
         onMouseEnter={() => setCount(2)}
         onMouseLeave={() => setCount(0)}
         >
           NIE
-        </button>
+        </button>}
       </div>
       <p className="read-the-docs">
         Dla pięknej Aleksandy
