@@ -10,21 +10,49 @@ import frame6 from './assets/svg/blush3.svg'
 import frame7 from './assets/svg/blush2.svg'
 import frame8 from './assets/svg/almostcry1.svg'
 import frame9 from './assets/svg/almostcry2.svg'
+import frame10 from './assets/svg/crying1.svg'
+import frame11 from './assets/svg/crying2.svg'
+import frame12 from './assets/svg/crying3.svg'
+import frame13 from './assets/svg/crying4.svg'
+import frame14 from './assets/svg/crying5.svg'
+import frame15 from './assets/svg/crying6.svg'
+import frame16 from './assets/svg/crying7.svg'
+import frame17 from './assets/svg/crying8.svg'
+import frame18 from './assets/svg/crying9.svg'
+import frame19 from './assets/svg/love1.svg'
+import frame20 from './assets/svg/love2.svg'
+import frame21 from './assets/svg/loveloop1.svg'
+import frame22 from './assets/svg/loveloop2.svg'
+import frame23 from './assets/svg/loveloop3.svg'
+import frame24 from './assets/svg/loveloop2.svg'
 let globalFrame=0
+let globalLoop=0
 function FrameFunction(animState,superState)
 {
   let interval=0;
-  if(animState==0)
+  if(superState==1)
+  {
+    if(globalLoop<2)
+    {
+      interval=50;
+    }
+    else interval=500;
+  }
+  else if(superState==2)
+  {
+    interval=500;
+  }
+  else if(animState==0)
   {
     interval=150;
   }
-  if(animState==1)
+  else if(animState==1)
   {
   interval=80;
   }
-  if(animState==2)
+  else if(animState==2)
   {
-  interval=1000;
+    interval=1000;
   }
   const [frame, setFrame] = useState(0)
   useEffect(() => 
@@ -34,17 +62,35 @@ function FrameFunction(animState,superState)
     }, interval);
     return () => clearInterval(inter);
   })
-  if(animState==0)
+  if(superState==1)
+  {
+    globalLoop=globalLoop+0.5;
+    if(globalLoop<3)
+    {
+      return globalLoop+18;
+    }
+    else return 21+(frame%4);
+  }
+  else if(superState==2)
+  {
+    globalLoop=globalLoop+0.5;
+    if(globalLoop<10)
+    {
+      return globalLoop+8;
+    }
+    else return 17+(frame%2);
+  }
+  else if(animState==0)
   {
     globalFrame=frame;
     return frame%4;
   }
-  if(animState==1)
+  else if(animState==1)
   {
     globalFrame=frame;
     return ((frame%4)+4);
   }
-  if(animState==2)
+  else if(animState==2)
   {
     return 8+Math.min(frame - globalFrame,1); 
   }
@@ -52,7 +98,7 @@ function FrameFunction(animState,superState)
 function App() {
   const [count, setCount] = useState(0)
   const [decision, setDecision] = useState(0)
-  const frames = [frame0,frame1,frame2,frame3,frame4,frame5,frame6,frame7,frame8,frame9]
+  const frames = [frame0,frame1,frame2,frame3,frame4,frame5,frame6,frame7,frame8,frame9,frame10,frame11,frame12,frame13,frame14,frame15,frame16,frame17,frame18,frame19,frame20,frame21,frame22,frame23,frame24]
   return (
     <>
       <div>
@@ -67,7 +113,7 @@ function App() {
         onMouseEnter={() => setCount(1)}
         onMouseLeave={() => setCount(0)}
         >
-          TAK
+        TAK
         </button>
         <button className="no" 
         onClick={() => setDecision(2)}
