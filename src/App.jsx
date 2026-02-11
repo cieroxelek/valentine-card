@@ -1,4 +1,4 @@
-import {useEffect,useState, } from 'react'
+import {useEffect,useState,useRef} from 'react'
 import './App.css'
 import frame0 from './assets/svg/pies1.svg'
 import frame1 from './assets/svg/pies2.svg'
@@ -106,7 +106,7 @@ function preloadSvgs(urls,svgCache)
           img.onload = () => resolve(url);
           img.onerror = reject;
           img.src = url;
-          svgCache.push(img);
+          svgCache.current.push(img);
         })
       )
     );
@@ -115,7 +115,7 @@ function App() {
   const [count, setCount] = useState(0)
   const [decision, setDecision] = useState(0)
   const [ready, setReady] = useState(0)
-  const ache = [];
+  const ache = useRef([]);
   const frames = [frame0,frame1,frame2,frame3,frame4,frame5,frame6,frame7,frame8,frame9,frame10,frame11,frame12,frame13,frame14,frame15,frame16,frame17,frame18,frame19,frame20,frame21,frame22,frame23,frame24];
   let currentFrame = FrameFunction(count,decision);
   useEffect(() => {
@@ -139,7 +139,7 @@ function App() {
         }
         {
         decision==2&&<h2>
-        :c szkoda. mam nadzieję, że chociaż ci się ta kartka spodobała  
+        :c szkoda. mam nadzieję, że chociaż ci się spodobała ta kartka   
         </h2>
         }
         {
