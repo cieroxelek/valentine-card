@@ -111,16 +111,19 @@ function App() {
   useEffect(() => {
     preloadSvgs(frames).then(setSvgs);
   }, []);
+  const changeBg = (color) => {
+    document.documentElement.style.setProperty('background-color', color);
+  };
   return (
-    <>
+    <div>
       {svgs.length >0&&<div className="logo react"
   dangerouslySetInnerHTML={{ __html: svgs[currentFrame] }}
 />}
-      <h1>CZY ZOSTANIESZ MOJĄ WALENTYNKĄ?</h1>
-      <div className="card">
+      {decision==0&&<h1>CZY ZOSTANIESZ MOJĄ WALENTYNKĄ?</h1>}
+      <div style={{display:'flex',gap: '10rem',padding: '4em'}} className="card">
         {
         decision==1&&<h2>
-        OMG SUPER, NIE MOGĘ SIĘ DOCZEKAĆ RANDKI
+        OMG SUPER, NIE MOGĘ SIĘ DOCZEKAĆ RANDKI!!!
         </h2>
         }
         {
@@ -130,7 +133,7 @@ function App() {
         }
         {
         decision==0&&<button className="yes" 
-        onClick={() => setDecision(1)}
+        onClick={() => {setDecision(1); changeBg("#ee2effff")}}
         onMouseEnter={() => setCount(1)}
         onMouseLeave={() => setCount(0)}
         >
@@ -139,7 +142,7 @@ function App() {
         }
         {
         decision==0&&<button className="no" 
-        onClick={() => setDecision(2)}
+        onClick={() => {setDecision(2); changeBg("#202020ff")}}
         onMouseEnter={() => setCount(2)}
         onMouseLeave={() => setCount(0)}
         >
@@ -149,7 +152,7 @@ function App() {
       <p className="read-the-docs">
         Dla pięknej Aleksandry
       </p>
-    </>
+    </div>
   )
 }
 
