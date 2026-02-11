@@ -95,8 +95,8 @@ function FrameFunction(animState,superState)
     return 8+Math.min(frame - globalFrame,1); 
   }
 }
-const svgCache = [];
-function preloadSvgs(urls)
+
+function preloadSvgs(urls,svgCache)
 {
   return Promise.all(
     urls.map(
@@ -106,7 +106,7 @@ function preloadSvgs(urls)
           img.onload = () => resolve(url);
           img.onerror = reject;
           img.src = url;
-          svgCache.push(img)
+          svgCache.push(img);
         })
       )
     );
@@ -115,10 +115,11 @@ function App() {
   const [count, setCount] = useState(0)
   const [decision, setDecision] = useState(0)
   const [ready, setReady] = useState(0)
+  const ache = [];
   const frames = [frame0,frame1,frame2,frame3,frame4,frame5,frame6,frame7,frame8,frame9,frame10,frame11,frame12,frame13,frame14,frame15,frame16,frame17,frame18,frame19,frame20,frame21,frame22,frame23,frame24];
   let currentFrame = FrameFunction(count,decision);
   useEffect(() => {
-    preloadSvgs(frames)
+    preloadSvgs(frames,ache)
     .then(() => setReady(1))
     .catch(console.error)
     });
