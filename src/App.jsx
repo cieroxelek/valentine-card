@@ -64,7 +64,7 @@ function FrameFunction(animState,superState)
   })
   if(superState==1)
   {
-    globalLoop=globalLoop+0.5;
+    globalLoop=globalLoop+1;
     if(globalLoop<3)
     {
       return globalLoop+18;
@@ -73,7 +73,7 @@ function FrameFunction(animState,superState)
   }
   else if(superState==2)
   {
-    globalLoop=globalLoop+0.5;
+    globalLoop=globalLoop+1;
     if(globalLoop<10)
     {
       return globalLoop+8;
