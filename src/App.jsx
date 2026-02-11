@@ -1,4 +1,4 @@
-import {useEffect,useState,useRef} from 'react'
+import {useEffect,useState} from 'react'
 import './App.css'
 import frame0 from './assets/svg/pies1.svg'
 import frame1 from './assets/svg/pies2.svg'
@@ -96,40 +96,26 @@ function FrameFunction(animState,superState)
   }
 }
 
-function preloadSvgs(urls,svgCache)
-{
+function preloadSvgs(urls) {
   return Promise.all(
-    urls.map(
-      (url) =>
-        new Promise ((resolve,reject) => {
-          const img = new Image();
-          img.onload = () => resolve(url);
-          img.onerror = reject;
-          img.src = url;
-          svgCache.current.push(img);
-        })
-      )
-    );
+    urls.map((url) => fetch(url).then((r) => r.text()))
+  );
 }
 function App() {
   const [count, setCount] = useState(0)
   const [decision, setDecision] = useState(0)
-  const [ready, setReady] = useState(0)
-  const ache = useRef([]);
+  const [svgs, setSvgs] = useState([]);
   const frames = [frame0,frame1,frame2,frame3,frame4,frame5,frame6,frame7,frame8,frame9,frame10,frame11,frame12,frame13,frame14,frame15,frame16,frame17,frame18,frame19,frame20,frame21,frame22,frame23,frame24];
   let currentFrame = FrameFunction(count,decision);
+
   useEffect(() => {
-    preloadSvgs(frames,ache)
-    .then(() => {requestAnimationFrame( () => setReady(1));})
-    .catch(console.error)
-    });
+    preloadSvgs(frames).then(setSvgs);
+  }, []);
   return (
-    ready&&<>
-      <div>
-        <a>
-          <img src={frames[currentFrame]} className="logo react" alt="piękny piesek, szkoda że nie widzisz" />
-        </a>
-      </div>
+    <>
+      {svgs.length >0&&<div className="logo react"
+  dangerouslySetInnerHTML={{ __html: svgs[currentFrame] }}
+/>}
       <h1>CZY ZOSTANIESZ MOJĄ WALENTYNKĄ?</h1>
       <div className="card">
         {
