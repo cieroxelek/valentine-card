@@ -36,7 +36,7 @@ function FrameFunction(animState,superState)
     {
       interval=100;
     }
-    else interval=500;
+    else interval=75;
   }
   else if(superState==2)
   {
@@ -95,12 +95,32 @@ function FrameFunction(animState,superState)
     return 8+Math.min(frame - globalFrame,1); 
   }
 }
+function preloadSvgs(urls)
+{
+  return Promise.all(
+    urls.map(
+      (url) =>
+        new Promise ((resolve,reject) => {
+          const img = new Image();
+          img.onload = () => resolve(url);
+          img.onerror = reject;
+          img.src = url;
+        })
+      )
+    );
+}
 function App() {
   const [count, setCount] = useState(0)
   const [decision, setDecision] = useState(0)
-  const frames = [frame0,frame1,frame2,frame3,frame4,frame5,frame6,frame7,frame8,frame9,frame10,frame11,frame12,frame13,frame14,frame15,frame16,frame17,frame18,frame19,frame20,frame21,frame22,frame23,frame24]
+  const [ready, setReady] = useState(0)
+  const frames = [frame0,frame1,frame2,frame3,frame4,frame5,frame6,frame7,frame8,frame9,frame10,frame11,frame12,frame13,frame14,frame15,frame16,frame17,frame18,frame19,frame20,frame21,frame22,frame23,frame24];
+  useEffect(() => {
+    preloadSvgs(frames)
+    .then(() => setReady(1))
+    .catch(console.error)
+    });
   return (
-    <>
+    ready&&<>
       <div>
         <a>
           <img src={frames[FrameFunction(count,decision)]} className="logo react" alt="piękny piesek, szkoda że nie widzisz" />
@@ -137,7 +157,7 @@ function App() {
         </button>}
       </div>
       <p className="read-the-docs">
-        Dla pięknej Aleksandy
+        Dla pięknej Aleksandry
       </p>
     </>
   )
