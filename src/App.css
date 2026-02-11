@@ -5,7 +5,7 @@
   text-align: center;
 }
 
-.logo {
+.logo.react svg {
   height: 352px;
   padding: 0em;
   will-change: filter;
