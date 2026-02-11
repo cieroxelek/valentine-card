@@ -95,6 +95,7 @@ function FrameFunction(animState,superState)
     return 8+Math.min(frame - globalFrame,1); 
   }
 }
+const svgCache = [];
 function preloadSvgs(urls)
 {
   return Promise.all(
@@ -105,6 +106,7 @@ function preloadSvgs(urls)
           img.onload = () => resolve(url);
           img.onerror = reject;
           img.src = url;
+          svgCache.push(img)
         })
       )
     );
