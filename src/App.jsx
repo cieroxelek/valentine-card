@@ -120,7 +120,7 @@ function App() {
   let currentFrame = FrameFunction(count,decision);
   useEffect(() => {
     preloadSvgs(frames,ache)
-    .then(() => setReady(1))
+    .then(() => {requestAnimationFrame( () => setReady(1));})
     .catch(console.error)
     });
   return (
